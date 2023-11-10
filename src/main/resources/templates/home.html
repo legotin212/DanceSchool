@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<h1>Hello</h1>
+<form method="POST" th:action="@{/}" id="registerForm">
+
+    <label for="name">name: </label>
+    <input type="text" name="name"/><br/>
+
+    <label for="lastname">lastname: </label>
+    <input type="text" name="lastname"/><br/>
+    <input type="submit" value="Register"/>
+</form>

@@ -3,7 +3,6 @@ package com.example.proooject.Model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.List;
 @Table(name = "coaches")
 public class Coach {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
     private String name;

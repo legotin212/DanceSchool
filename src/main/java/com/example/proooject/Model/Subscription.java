@@ -16,14 +16,14 @@ import java.sql.Date;
 public class Subscription {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
     @Column(name ="expiration_date")
     private Date expirationDate;
     @OneToOne
     @MapsId
     @Setter
-    private Client client;
+    private User user;
     @Column
     private int visits;
 
@@ -40,7 +40,7 @@ public class Subscription {
     public String toString() {
         return "Subscription{" +
                 "expirationDate=" + expirationDate +
-                ", client=" + client.toString() +
+                ", client=" + user.toString() +
                 ", visits=" + visits +
                 '}';
     }

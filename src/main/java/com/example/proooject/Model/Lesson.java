@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -23,7 +22,7 @@ public class Lesson {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter
     private int Id;
     @Column
@@ -35,7 +34,7 @@ public class Lesson {
     @JoinTable(name = "clientsonlessons",
     joinColumns = @JoinColumn(name = "lesson"),
     inverseJoinColumns = @JoinColumn(name = "client"))
-    private List<Client> clientsOnLesson =new ArrayList<>();
+    private List<User> clientsOnLesson =new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(name = "coaches_on_lessons",
@@ -43,15 +42,15 @@ public class Lesson {
             inverseJoinColumns = @JoinColumn(name = "coach_id"))
     private List<Coach> coaches = new ArrayList<>();
 
-    public void addClientToLesson(Client client){
-        clientsOnLesson.add(client);
-        client.getSubscription().visit();
-        client.getLessons().add(this);
+    public void addClientToLesson(User user){
+        clientsOnLesson.add(user);
+        user.getSubscription().visit();
+        user.getLessons().add(this);
 
     }
-    public void removeClientFromLesson(Client client){
-        clientsOnLesson.remove(client);
-        client.getLessons().remove(this);
+    public void removeClientFromLesson(User user){
+        clientsOnLesson.remove(user);
+        user.getLessons().remove(this);
     }
     public void addCoachToLesson(Coach coach){
         coach.getLessons().add(this);
@@ -62,8 +61,8 @@ public class Lesson {
         coaches.remove(coach);
     }
     public void showClients(){
-      for(Client client: clientsOnLesson){
-          log.info(client.toString());
+      for(User user : clientsOnLesson){
+          log.info(user.toString());
       }
     }
     public void showCoaches(){

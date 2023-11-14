@@ -31,10 +31,10 @@ public class Lesson {
     @Column
     private Date date;
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(name = "clientsonlessons",
+    @JoinTable(name = "useronlessons",
     joinColumns = @JoinColumn(name = "lesson"),
-    inverseJoinColumns = @JoinColumn(name = "client"))
-    private List<User> clientsOnLesson =new ArrayList<>();
+    inverseJoinColumns = @JoinColumn(name = "user"))
+    private List<User> usersOnLesson =new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(name = "coaches_on_lessons",
@@ -42,14 +42,14 @@ public class Lesson {
             inverseJoinColumns = @JoinColumn(name = "coach_id"))
     private List<Coach> coaches = new ArrayList<>();
 
-    public void addClientToLesson(User user){
-        clientsOnLesson.add(user);
+    public void addUserToLesson(User user){
+        usersOnLesson.add(user);
         user.getSubscription().visit();
         user.getLessons().add(this);
 
     }
     public void removeClientFromLesson(User user){
-        clientsOnLesson.remove(user);
+        usersOnLesson.remove(user);
         user.getLessons().remove(this);
     }
     public void addCoachToLesson(Coach coach){
@@ -61,7 +61,7 @@ public class Lesson {
         coaches.remove(coach);
     }
     public void showClients(){
-      for(User user : clientsOnLesson){
+      for(User user : usersOnLesson){
           log.info(user.toString());
       }
     }

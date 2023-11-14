@@ -7,7 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,17 +20,25 @@ import java.util.Set;
 @ToString
 public class Role implements GrantedAuthority {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Column
     private String name;
-    @Transient
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<>();
 
-
-    public Role(int id) {
-        this.id = id;
+    @ManyToMany(fetch=FetchType.EAGER,
+            cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "roles_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users = new ArrayList<>();
+    public void addUser(User user){
+        users.add(user);
     }
+
+
+    public Role( String name) {
+        this.name = name;
+    }
+
     public Role(int id, String name) {
         this.id = id;
         this.name = name;

@@ -40,11 +40,15 @@ public class UserService implements UserDetailsService {
         if (userFromDB != null){
             return false;
         }
-        user.setRoles(Collections.singleton(new Role(1,"USER")));
+        Role role = roleRepository.findById(2).get();
+        user.addRole(role);
+        role.addUser(user);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
         userRepository.save(user);
         return true;
     }
+
     public User findClientById(int clientId){
         Optional<User> clientFromDb = userRepository.findById(clientId);
         return clientFromDb.orElse(new User());

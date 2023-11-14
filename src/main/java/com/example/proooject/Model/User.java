@@ -10,11 +10,12 @@ import java.util.*;
 
 @Entity
 @Slf4j
-@Table(name = "clients")
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class User implements UserDetails {
 
     public User(String name, String lastname) {
@@ -29,19 +30,22 @@ public class User implements UserDetails {
     private String name;
     @Column
     private String lastname;
-    @ManyToMany(mappedBy = "clientsOnLesson")
+    @ManyToMany(mappedBy = "usersOnLesson")
     private List<Lesson> lessons = new ArrayList<>();
     @OneToOne(mappedBy = "user")
     private Subscription subscription;
     @Column
+    @Setter
+    @Getter
     private String password;
     @Column(name = "login")
+    @Setter
     private String username;
 
     @Transient
     private String passwordConfirm;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @ManyToMany(fetch=FetchType.EAGER,mappedBy = "users")
+    private List<Role> roles = new ArrayList<>();
 
 
     public void setSubscription(Subscription subscription){
@@ -60,7 +64,9 @@ public class User implements UserDetails {
             log.info(lesson.toString());
         }
     }
-
+    public void addRole(Role role){
+        roles.add(role);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Slf4j
@@ -16,65 +14,48 @@ import java.util.List;
 @Getter
 @Setter
 public class Lesson {
+
+    @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int Id;
+    @Column
+    private String name;
+    @Column
+    private Date date;
+
+    @Column
+    private boolean isExpired;
+
+    @ManyToMany( cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(name = "user_on_lessons",
+    joinColumns = @JoinColumn(name = "lesson"),
+    inverseJoinColumns = @JoinColumn(name = "user"))
+    private Set<User> usersOnLesson =new HashSet<>();
+    @ManyToMany( cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(name = "coaches_on_lessons",
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "coach_id"))
+    private Set<User> coachesOnLesson = new HashSet<>();
+
     public Lesson(String name, Date date) {
         this.name = name;
         this.date = date;
     }
+    public void addClient(User client){
+        usersOnLesson.add(client);
+    }
+    public void addCoach(User coach){
+        coachesOnLesson.add(coach);
+    }
+    public void removeClient(User client){
+        usersOnLesson.remove(client);
+        client.getLessons().remove(this);
+    }
+    public void removeCoach(User coach){
+        usersOnLesson.remove(coach);
+        coach.getLessonsAsCoach().remove(this);
+    }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
-    private int Id;
-    @Column
-    private String name;
 
-    @Column
-    private Date date;
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(name = "useronlessons",
-    joinColumns = @JoinColumn(name = "lesson"),
-    inverseJoinColumns = @JoinColumn(name = "user"))
-    private List<User> usersOnLesson =new ArrayList<>();
-
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(name = "coaches_on_lessons",
-            joinColumns = @JoinColumn(name = "lesson_id"),
-            inverseJoinColumns = @JoinColumn(name = "coach_id"))
-    private List<Coach> coaches = new ArrayList<>();
-
-    public void addUserToLesson(User user){
-        usersOnLesson.add(user);
-        user.getSubscription().visit();
-        user.getLessons().add(this);
-
-    }
-    public void removeClientFromLesson(User user){
-        usersOnLesson.remove(user);
-        user.getLessons().remove(this);
-    }
-    public void addCoachToLesson(Coach coach){
-        coach.getLessons().add(this);
-        coaches.add(coach);
-    }
-    public void removeCoachFromLesson(Coach coach){
-        coach.getLessons().remove(this);
-        coaches.remove(coach);
-    }
-    public void showClients(){
-      for(User user : usersOnLesson){
-          log.info(user.toString());
-      }
-    }
-    public void showCoaches(){
-        for(Coach coach:coaches){
-            log.info(coach.toString());
-        }
-    }
-    @Override
-    public String toString() {
-        return "Lesson{" +
-                "name='" + name + '\'' +
-                ", date=" + date +
-                '}';
-    }
 }

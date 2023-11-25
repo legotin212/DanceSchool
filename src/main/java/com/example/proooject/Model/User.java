@@ -8,73 +8,75 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
-@Entity
+
 @Slf4j
-@Table(name = "users")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@Entity
+@Table(name = "users")
 public class User implements UserDetails {
-
-    public User(String name, String lastname) {
-        this.name = name;
-        this.lastname = lastname;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String name;
     @Column
     private String lastname;
     @ManyToMany(mappedBy = "usersOnLesson")
-    private List<Lesson> lessons = new ArrayList<>();
-    @OneToOne(mappedBy = "user")
+    private  Set<Lesson> lessons = new HashSet<>();
+    @ManyToMany(mappedBy = "coachesOnLesson")
+    private Set<Lesson> lessonsAsCoach = new HashSet<>();
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Subscription subscription;
+    @ManyToMany(fetch=FetchType.EAGER,mappedBy = "users")
+    private Set<Role> roles = new HashSet<>();
     @Column
-    @Setter
-    @Getter
     private String password;
     @Column(name = "login")
-    @Setter
     private String username;
-
     @Transient
     private String passwordConfirm;
-    @ManyToMany(fetch=FetchType.EAGER,mappedBy = "users")
-    private List<Role> roles = new ArrayList<>();
-
-
-    public void setSubscription(Subscription subscription){
-        subscription.setUser(this);
-        this.subscription=subscription;
+    public User(String name, String lastname, String password, String username) {
+        this.name = name;
+        this.lastname = lastname;
+        this.password = password;
+        this.username = username;
     }
-    @Override
-    public String toString() {
-        return "Client{" +
-                "name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
-    }
-    public void showLessons(){
-        for(Lesson lesson : lessons){
-            log.info(lesson.toString());
+    @PreRemove
+    public void removeUserAssociations(){
+        for(Lesson lesson: this.getLessons()){
+            lesson.removeClient(this);
+        }
+        for (Lesson lesson: this.getLessonsAsCoach()){
+            lesson.removeCoach(this);
+        }
+        for(Role role: this.getRoles()){
+            role.removeUser(this);
         }
     }
+
+
     public void addRole(Role role){
         roles.add(role);
     }
-
+    public void addLesson(Lesson lesson){
+        lessons.add(lesson);
+    }
+    public void addLessonAsCoach(Lesson lesson){
+        lessonsAsCoach.add(lesson);
+    }
+    public void removeLesson(Lesson lesson){
+        lessons.remove(lesson);
+    }
+    public void removeLessonAsCoach(Lesson lesson){
+        lessonsAsCoach.remove(lesson);
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
-
-
-
     @Override
     public boolean isAccountNonExpired() {
         return true;

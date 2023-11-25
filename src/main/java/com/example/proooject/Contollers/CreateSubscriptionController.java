@@ -26,14 +26,6 @@ public class CreateSubscriptionController {
 
     @GetMapping
     public String createSubscription(){
-        User user =
-                userRepository.findById(5).get();
-        Subscription subscription = new Subscription(Date.valueOf("2023-12-09"),12);
-        user.setSubscription(subscription);
-        subscriptionRepository.save(subscription);
-        userRepository.save(user);
-
-        log.info(subscription.toString());
         return "subcreate";
     }
 }

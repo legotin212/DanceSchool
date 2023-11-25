@@ -20,16 +20,17 @@ import java.util.Set;
 @ToString
 public class Role implements GrantedAuthority {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String name;
 
     @ManyToMany(fetch=FetchType.EAGER,
-            cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+            cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "roles_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users = new ArrayList<>();
+    private Set<User> users = new HashSet<>();
     public void addUser(User user){
         users.add(user);
     }
@@ -42,6 +43,10 @@ public class Role implements GrantedAuthority {
     public Role(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+    public void removeUser(User user){
+        users.remove(user);
+        user.getRoles().remove(this);
     }
 
     public String getName() {

@@ -1,7 +1,5 @@
 package com.example.proooject.Contollers;
 
-import com.example.proooject.Model.Lesson;
-import com.example.proooject.Model.Role;
 import com.example.proooject.Model.User;
 import com.example.proooject.Repository.UserRepository;
 import com.example.proooject.Repository.RoleRepository;
@@ -35,13 +33,6 @@ public class HomeController {
     }
     @GetMapping("/")
     public String homePage(Model model){
-//        User user = new User("Test2", "Test2");
-//        user.setPassword("123456");
-//        user.setUsername("Test2");
-//        userService.saveUser(user);
-
-
-
         return "home";
     }
 

@@ -12,28 +12,29 @@ import java.sql.Date;
 @Slf4j
 @Table(name = "subscription")
 @Getter
+@Setter
 @NoArgsConstructor
 public class Subscription {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     @Column(name ="expiration_date")
     private Date expirationDate;
     @OneToOne
     @MapsId
-    @Setter
     private User user;
     @Column
-    private int visits;
+    private Integer visits;
 
-    public Subscription(Date expirationDate, int visits) {
+    public Subscription(Date expirationDate, Integer visits) {
         this.expirationDate = expirationDate;
         this.visits = visits;
     }
 
     public void visit(){
-        this.visits-=1;
+        if(visits!=null){
+       visits-=1;}
     }
 
     @Override

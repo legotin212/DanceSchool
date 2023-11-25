@@ -75,6 +75,7 @@ public class SecurityConfig {
 
         return new ProviderManager(authenticationProvider);
     }
+
 //    @Bean
 //    public AuthorityAuthorizationManager authorityAuthorizationManager(){
 //        authorityAuthorizationManager().setRoleHierarchy();
@@ -85,9 +86,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/").permitAll();
-
+                    auth.requestMatchers("/Admin").hasRole("ADMIN");
+                    auth.requestMatchers("/coach").hasRole("COACH");
+                    auth.requestMatchers("/subcreate").hasRole("USER");
                     auth.requestMatchers("/selectLesson").hasRole("USER");
-                    auth.requestMatchers("/admin").hasRole("Admin");
+                    auth.requestMatchers("/admin").hasRole("ADMIN");
+                    auth.requestMatchers("/admin/deleteUser").hasRole("ADMIN");
+                    auth.requestMatchers("/pc").hasAnyRole("ADMIN","USER","COACH");
                 })
                 .formLogin(Customizer.withDefaults())
                 .build();

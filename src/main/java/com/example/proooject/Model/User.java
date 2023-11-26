@@ -24,11 +24,11 @@ public class User implements UserDetails {
     private String name;
     @Column
     private String lastname;
-    @ManyToMany(mappedBy = "usersOnLesson")
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "usersOnLesson",cascade = CascadeType.MERGE)
     private  Set<Lesson> lessons = new HashSet<>();
     @ManyToMany(mappedBy = "coachesOnLesson")
     private Set<Lesson> lessonsAsCoach = new HashSet<>();
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.MERGE)
     private Subscription subscription;
     @ManyToMany(fetch=FetchType.EAGER,mappedBy = "users")
     private Set<Role> roles = new HashSet<>();
@@ -57,11 +57,15 @@ public class User implements UserDetails {
         }
     }
 
+    public Set<Lesson> getLessons() {
+        return lessons;
+    }
 
     public void addRole(Role role){
         roles.add(role);
     }
     public void addLesson(Lesson lesson){
+        log.info("method add lesson");
         lessons.add(lesson);
     }
     public void addLessonAsCoach(Lesson lesson){

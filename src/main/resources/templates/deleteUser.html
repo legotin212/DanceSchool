@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<h2>Удаление пользователя</h2>
+<form method="POST" action="/admin/deleteUser" class="needs-validation" novalidate>
+    <div class="form-group">
+        <label for="usernamefordelete">Логин пользователя для удаления</label>
+        <input name="usernamefordelete" type="text" class="form-control" id="usernamefordelete" required>
+    </div>
+    <button type="submit" class="btn btn-danger">Удалить пользователя</button>
+</form>
+</html>

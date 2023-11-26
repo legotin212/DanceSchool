@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+<body>
+<div class="container mt-5">
+    <h1>Администрирование</h1>
+
+    <div class="table-responsive">
+        <h2>Список тренеров:</h2>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="coach : ${coaches}">
+                <td th:text="${coach.name}"></td>
+                <td th:text="${coach.lastname}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+        integrity="sha384-4s1a0kVlAuVqLr5wgc0Od9UgeE1fQfA3q3u8kXa3Z3ROV6z9TkBSSUnQlmh/j5j"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOaQDFKssQquT2A6Pz8LXkUmZIpq0kUKP"
+        crossorigin="anonymous"></script>
+</body>
+<!--<body>-->
+<!--<h1>Администрирование</h1>-->
+<!--<div>-->
+<!--    <h2>Список тренеров:</h2>-->
+<!--    <table border="1">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Имя</th>-->
+<!--            <th>Фамилия</th>-->
+<!--            &lt;!&ndash; Добавьте другие поля пользователя по необходимости &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        &lt;!&ndash; Итерация по списку пользователей и вывод данных в таблицу &ndash;&gt;-->
+<!--        <tr th:each="user : ${coaches}">-->
+<!--            <td th:text="${user.name}"></td>-->
+<!--            <td th:text="${user.lastname}"></td>-->
+<!--            &lt;!&ndash; Добавьте другие поля пользователя по необходимости &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+<!--</body>-->
+<body>
+<div class="container mt-5">
+    <h2>Список Клиентов</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <!-- Добавьте другие поля пользователя по необходимости -->
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Итерация по списку пользователей и вывод данных в таблицу -->
+            <tr th:each="user : ${users}">
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.lastname}"></td>
+                <!-- Добавьте другие поля пользователя по необходимости -->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+        integrity="sha384-4s1a0kVlAuVqLr5wgc0Od9UgeE1fQfA3q3u8kXa3Z3ROV6z9TkBSSUnQlmh/j5j"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOaQDFKssQquT2A6Pz8LXkUmZIpq0kUKP"
+        crossorigin="anonymous"></script>
+</body>
+
+
+<div class="container mt-5">
+    <h2>Список Администраторов</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Логин</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Итерация по списку администраторов и вывод данных в таблицу -->
+            <tr th:each="admin : ${admin}">
+                <td th:text="${admin.username}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+        integrity="sha384-4s1a0kVlAuVqLr5wgc0Od9UgeE1fQfA3q3u8kXa3Z3ROV6z9TkBSSUnQlmh/j5j"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOaQDFKssQquT2A6Pz8LXkUmZIpq0kUKP"
+        crossorigin="anonymous"></script>
+</body>
+
+<body>
+<div class="container mt-5">
+    <h1>Создание учетной записи клиента</h1>
+    <form method="POST" action="/Admin" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="username">Логин</label>
+            <input name="username" type="text" class="form-control" id="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input name="password" type="password" class="form-control" id="password" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Имя</label>
+            <input name="name" type="text" class="form-control" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="lastname">Фамилия</label>
+            <input name="lastname" type="text" class="form-control" id="lastname" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Создать пользователя</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+        integrity="sha384-4s1a0kVlAuVqLr5wgc0Od9UgeE1fQfA3q3u8kXa3Z3ROV6z9TkBSSUnQlmh/j5j"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOaQDFKssQquT2A6Pz8LXkUmZIpq0kUKP"
+        crossorigin="anonymous"></script>
+</body>
+
+<a th:href="@{/admin/deleteUser}" class="btn btn-primary "> Удалить пользователя </a>>
+
+</a>
+</html>

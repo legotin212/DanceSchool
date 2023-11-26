@@ -22,7 +22,8 @@ public class Lesson {
     @Column
     private String name;
     @Column
-    private Date date;
+    @Temporal(TemporalType.DATE)
+    private Calendar date;
 
     @Column
     private boolean isExpired;
@@ -38,10 +39,17 @@ public class Lesson {
             inverseJoinColumns = @JoinColumn(name = "coach_id"))
     private Set<User> coachesOnLesson = new HashSet<>();
 
-    public Lesson(String name, Date date) {
+    public Lesson(String name, Calendar date) {
         this.name = name;
         this.date = date;
     }
+
+    public Lesson(String name, Calendar date, boolean isExpired) {
+        this.name = name;
+        this.date = date;
+        this.isExpired = isExpired;
+    }
+
     public void addClient(User client){
         usersOnLesson.add(client);
     }

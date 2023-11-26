@@ -41,10 +41,15 @@ public class LessonService {
     @Transactional
     public void addClientToLesson(Lesson lesson, User user){
         lesson.addClient(user);
+        log.info("client added");
         user.getSubscription().visit();
+        log.info("sub visit");
         user.addLesson(lesson);
-        lessonRepository.save(lesson);
+        log.info("lesson added");
+//        lessonRepository.save(lesson);
         userRepository.save(user);
+
+
     }
     @Transactional
     public void removeClientFromLesson(Lesson lesson,User user){
@@ -68,17 +73,11 @@ public class LessonService {
         userRepository.save(coach);
     }
     public List<Lesson> getAvailableLessons(){
-        entityManager.createQuery(
-                "SELECT l FROM LESSONS WHERE L.ISEXPIRED!=:paramEp ",
+        return entityManager.createQuery(
+                "SELECT l FROM Lesson l WHERE l.isExpired!=:paramExp ",
                 Lesson.class
-        ).setParameter("paramEp",false).getResultList();
+        ).setParameter("paramExp",false).getResultList();
 
-//        entityManager.createQuery(
-//                        "SELECT u FROM User u LEFT JOIN u.roles r WHERE r.id = :paramId",
-//                        User.class
-//                )
-//                .setParameter("paramId", 3)
-//                .getResultList();
 
     }
 

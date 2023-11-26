@@ -35,14 +35,9 @@ public class SelectLessonController {
         this.userService = userService;
         this.lessonService = lessonService;
     }
-
-
-
-
     @GetMapping
     public String selectLesson(Model model) {
-        lessonService.ge
-        model.addAttribute();
+        model.addAttribute("lessons",lessonService.getAvailableLessons());
 
         return "/selectLesson";
     }

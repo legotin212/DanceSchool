@@ -85,6 +85,8 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/pc/selectLesson").hasRole("USER");
+                    auth.requestMatchers("/pc").hasRole("USER");
                     auth.requestMatchers("/").permitAll();
                     auth.requestMatchers("/Admin").hasRole("ADMIN");
                     auth.requestMatchers("/coach").hasRole("COACH");
@@ -92,7 +94,6 @@ public class SecurityConfig {
                     auth.requestMatchers("/selectLesson").hasRole("USER");
                     auth.requestMatchers("/admin").hasRole("ADMIN");
                     auth.requestMatchers("/admin/deleteUser").hasRole("ADMIN");
-                    auth.requestMatchers("/pc").hasAnyRole("ADMIN","USER","COACH");
                 })
                 .formLogin(Customizer.withDefaults())
                 .build();

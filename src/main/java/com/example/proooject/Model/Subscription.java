@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 @Entity
 @Slf4j
@@ -20,14 +21,14 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     @Column(name ="expiration_date")
-    private Date expirationDate;
+    private Calendar expirationDate;
     @OneToOne
     @MapsId
     private User user;
     @Column
     private Integer visits;
 
-    public Subscription(Date expirationDate, Integer visits) {
+    public Subscription(Calendar expirationDate, Integer visits) {
         this.expirationDate = expirationDate;
         this.visits = visits;
     }

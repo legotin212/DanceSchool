@@ -20,9 +20,9 @@ public class AdminController {
 
     @GetMapping
     public String regPage( Model model){
-        model.addAttribute("coaches",userService.GetCoachList());
-        model.addAttribute("users",userService.GetClientList());
-        model.addAttribute("admin",userService.GetAdminList());
+        model.addAttribute("coaches",userService.getCoachList());
+        model.addAttribute("users",userService.getClientList());
+        model.addAttribute("admin",userService.getAdminList());
         return "admin";
 
     }

@@ -85,6 +85,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/dt").hasRole("USER");
                     auth.requestMatchers("/pc/selectLesson").hasRole("USER");
                     auth.requestMatchers("/pc").hasRole("USER");
                     auth.requestMatchers("/").permitAll();

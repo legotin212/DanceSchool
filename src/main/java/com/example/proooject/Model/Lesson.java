@@ -3,13 +3,12 @@ package com.example.proooject.Model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.*;
 
 @Entity
 @Slf4j
 @NoArgsConstructor
-@ToString
+
 @Table(name = "lessons")
 @Getter
 @Setter
@@ -27,6 +26,16 @@ public class Lesson {
 
     @Column
     private boolean isExpired;
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", isExpired=" + isExpired +
+                '}';
+    }
 
     @ManyToMany( cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(name = "user_on_lessons",

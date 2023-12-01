@@ -27,7 +27,6 @@ public class LessonService {
         this.userRepository = userRepository;
         this.entityManager = entityManager;
     }
-
     public void selectLesson(Lesson lesson, User user)throws Exception{
 
         addClientToLesson(lesson,user);
@@ -73,10 +72,11 @@ public class LessonService {
         userRepository.save(coach);
     }
     public List<Lesson> getAvailableLessons(){
+        log.info("getavless method");
         return entityManager.createQuery(
                 "SELECT l FROM Lesson l WHERE l.isExpired!=:paramExp ",
                 Lesson.class
-        ).setParameter("paramExp",false).getResultList();
+        ).setParameter("paramExp",true).getResultList();
 
 
     }

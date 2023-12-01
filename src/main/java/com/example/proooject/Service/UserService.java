@@ -115,7 +115,7 @@ public class UserService implements UserDetailsService {
         }
         return user;
     }
-    public List<User> GetClientList() {
+    public List<User> getClientList() {
         return entityManager.createQuery(
                         "SELECT u FROM User u LEFT JOIN u.roles r WHERE r.id = :paramId",
                         User.class
@@ -123,7 +123,7 @@ public class UserService implements UserDetailsService {
                 .setParameter("paramId", 1)
                 .getResultList();
     }
-    public List<User> GetAdminList() {
+    public List<User> getAdminList() {
         return entityManager.createQuery(
                         "SELECT u FROM User u LEFT JOIN u.roles r WHERE r.id = :paramId",
                         User.class
@@ -131,7 +131,7 @@ public class UserService implements UserDetailsService {
                 .setParameter("paramId", 2)
                 .getResultList();
     }
-    public List<User> GetCoachList() {
+    public List<User> getCoachList() {
         return entityManager.createQuery(
                         "SELECT u FROM User u LEFT JOIN u.roles r WHERE r.id = :paramId",
                         User.class

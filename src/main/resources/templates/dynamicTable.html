@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson Selection</title>
+</head>
+<body>
+
+<form method="post" action="/dt">
+  <table>
+    <thead>
+    <tr>
+      <th>Lesson Name</th>
+      <th>Lesson Date</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="lesson : ${lessons}">
+      <td th:text="${lesson.name}">Lesson Name</td>
+      <td th:text="${#dates.format(lesson.date, 'yyyy-MM-dd')}">Lesson Date</td>
+      <td>
+        <input type="radio"  th:value="${lesson.name}" />
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button type="submit">Submit Selected Lesson</button>
+</form>
+
+</body>
+<body>
+
+</body>
+</html>

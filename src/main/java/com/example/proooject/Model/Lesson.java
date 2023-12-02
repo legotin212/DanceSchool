@@ -37,7 +37,7 @@ public class Lesson {
                 '}';
     }
 
-    @ManyToMany( cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(name = "user_on_lessons",
     joinColumns = @JoinColumn(name = "lesson"),
     inverseJoinColumns = @JoinColumn(name = "user"))
@@ -53,10 +53,22 @@ public class Lesson {
         this.date = date;
     }
 
+
     public Lesson(String name, Calendar date, boolean isExpired) {
         this.name = name;
         this.date = date;
         this.isExpired = isExpired;
+    }
+    public boolean hasUser(User user){
+        log.info(String.valueOf(usersOnLesson.size()));
+        if (usersOnLesson.contains(user)){
+
+
+            log.info("true");
+            return true;
+        }
+        log.info("false");
+        return false;
     }
 
     public void addClient(User client){

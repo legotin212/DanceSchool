@@ -1,33 +1,39 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<h1>Select lesson</h1>
-<h2>Список доступных занятий:</h2>
-<table class="table table-bordered">
-    <thead class="thead-dark">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson Selection</title>
+</head>
+<body>
+
+<form method="post" action="/pc/selectLesson">
+  <table>
+    <thead>
     <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Название</th>
-        <th scope="col">Дата</th>
-
-
-
+      <th>Название</th>
+      <th>Дата</th>
+      <th>Время</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="lesson : ${lessons}">
-        <td th:text="${lesson.id}"></td>
-        <td th:text="${lesson.name}"></td>
-        <td th:text="${lesson.date}"></td>
+      <td th:text="${lesson.name}">Название занятия</td>
+      <td th:text="${#dates.format(lesson.date, 'yyyy-MM-dd')}">Дата </td>
+      <td th:text="${#dates.format(lesson.date, 'HH:mm')}">Время</td>
+      <td>
+        <input type="radio"  name="lessonId" th:value="${lesson.id}" />
+      </td>
     </tr>
     </tbody>
-</table>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
-        integrity="sha384-4s1a0kVlAuVqLr5wgc0Od9UgeE1fQfA3q3u8kXa3Z3ROV6z9TkBSSUnQlmh/j5j"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOaQDFKssQquT2A6Pz8LXkUmZIpq0kUKP"
-        crossorigin="anonymous"></script>
+  </table>
+
+  <button type="submit">Записаться</button>
+</form>
+
+</body>
+<body>
+
+</body>
+</html>

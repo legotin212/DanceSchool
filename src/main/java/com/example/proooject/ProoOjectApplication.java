@@ -12,9 +12,5 @@ public class ProoOjectApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProoOjectApplication.class, args);
     }
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-//        return http
-//                .httpBasic().and().authorizeHttpRequests().anyRequest().permitAll().and().build();
-//    }
+
 }

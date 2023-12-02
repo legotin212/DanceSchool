@@ -1,4 +1,4 @@
-package com.example.proooject.Contollers;
+package com.example.proooject.Contollers.Administration;
 
 import com.example.proooject.Service.UserService;
 import lombok.extern.slf4j.Slf4j;

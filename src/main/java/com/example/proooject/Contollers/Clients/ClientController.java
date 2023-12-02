@@ -1,4 +1,4 @@
-package com.example.proooject.Contollers;
+package com.example.proooject.Contollers.Clients;
 
 import com.example.proooject.Model.Lesson;
 import com.example.proooject.Model.Subscription;

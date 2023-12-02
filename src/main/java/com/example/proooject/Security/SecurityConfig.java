@@ -85,16 +85,17 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/dt").hasRole("USER");
+                    auth.requestMatchers("/").permitAll();
+
                     auth.requestMatchers("/pc/selectLesson").hasRole("USER");
                     auth.requestMatchers("/pc").hasRole("USER");
-                    auth.requestMatchers("/").permitAll();
+
+                    auth.requestMatchers("/Coach").hasRole("COACH");
+
                     auth.requestMatchers("/Admin").hasRole("ADMIN");
-                    auth.requestMatchers("/coach").hasRole("COACH");
-                    auth.requestMatchers("/subcreate").hasRole("USER");
-                    auth.requestMatchers("/selectLesson").hasRole("USER");
-                    auth.requestMatchers("/admin").hasRole("ADMIN");
-                    auth.requestMatchers("/admin/deleteUser").hasRole("ADMIN");
+                    auth.requestMatchers("/Admin/subCreate").hasRole("ADMIN");
+                    auth.requestMatchers("/Admin/deleteUser").hasRole("ADMIN");
+                    auth.requestMatchers("/Admin/createLesson").hasRole("ADMIN");
                 })
                 .formLogin(Customizer.withDefaults())
                 .build();

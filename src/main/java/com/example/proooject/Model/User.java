@@ -12,9 +12,9 @@ import java.util.*;
 @Slf4j
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode(of = {"name","username","lastname","id"})
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
@@ -24,7 +24,7 @@ public class User implements UserDetails {
     private String name;
     @Column
     private String lastname;
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "usersOnLesson",cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "usersOnLesson")
     private  Set<Lesson> lessons = new HashSet<>();
     @ManyToMany(mappedBy = "coachesOnLesson")
     private Set<Lesson> lessonsAsCoach = new HashSet<>();
@@ -44,6 +44,16 @@ public class User implements UserDetails {
         this.password = password;
         this.username = username;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", username='" + username + '\'' +
+                '}';
+    }
+
     @PreRemove
     public void removeUserAssociations(){
         for(Lesson lesson: this.getLessons()){

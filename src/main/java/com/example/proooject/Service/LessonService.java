@@ -38,13 +38,13 @@ public class LessonService {
 
     public void saveNewLesson(String name, Calendar date,User coach){
         Lesson lesson = new Lesson(name,date,false);
+        lessonRepository.save(lesson);
         addCoachToLesson(lesson,coach);
 
     }
     public Lesson findLessonById(Integer lessonId){
         Optional<Lesson> lessonFromDb = lessonRepository.findById(lessonId);
         return lessonFromDb.orElse(new Lesson());
-//        ?????
     }
     @Transactional
     public void addClientToLesson(Lesson lesson, User user){
@@ -69,10 +69,16 @@ public class LessonService {
     }
     @Transactional
     public void addCoachToLesson(Lesson lesson,User coach){
+        log.info("method");
         lesson.addCoach(coach);
         coach.addLessonAsCoach(lesson);
-        lessonRepository.save(lesson);
+        log.info("before saving");
+
         userRepository.save(coach);
+        log.info("coach saved");
+
+        lessonRepository.save(lesson);
+        log.info("lesson saved");
     }
     @Transactional
     public void removeCoachFromLesson(Lesson lesson,User coach){

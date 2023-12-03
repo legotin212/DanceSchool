@@ -21,6 +21,7 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     @Column(name ="expiration_date")
+    @Temporal(TemporalType.DATE)
     private Calendar expirationDate;
     @OneToOne
     @MapsId

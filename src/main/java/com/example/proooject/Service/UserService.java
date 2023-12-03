@@ -115,6 +115,7 @@ public class UserService implements UserDetailsService {
         }
         return user;
     }
+
     public List<User> getClientList() {
         return entityManager.createQuery(
                         "SELECT u FROM User u LEFT JOIN u.roles r WHERE r.id = :paramId",

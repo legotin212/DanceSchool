@@ -26,9 +26,9 @@ public class User implements UserDetails {
     private String lastname;
     @ManyToMany(fetch = FetchType.EAGER,mappedBy = "usersOnLesson")
     private  Set<Lesson> lessons = new HashSet<>();
-    @ManyToMany(mappedBy = "coachesOnLesson")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "coachesOnLesson")
     private Set<Lesson> lessonsAsCoach = new HashSet<>();
-    @OneToOne(mappedBy = "user", cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.MERGE)
     private Subscription subscription;
     @ManyToMany(fetch=FetchType.EAGER,mappedBy = "users")
     private Set<Role> roles = new HashSet<>();

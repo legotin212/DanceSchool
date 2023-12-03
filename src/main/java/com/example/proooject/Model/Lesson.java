@@ -8,7 +8,7 @@ import java.util.*;
 @Entity
 @Slf4j
 @NoArgsConstructor
-
+@EqualsAndHashCode(of = {"name","date","id"})
 @Table(name = "lessons")
 @Getter
 @Setter
@@ -21,11 +21,11 @@ public class Lesson {
     @Column
     private String name;
     @Column
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar date;
 
     @Column
-    private boolean isExpired;
+    private Boolean isExpired;
 
     @Override
     public String toString() {
@@ -54,7 +54,7 @@ public class Lesson {
     }
 
 
-    public Lesson(String name, Calendar date, boolean isExpired) {
+    public Lesson(String name, Calendar date, Boolean isExpired) {
         this.name = name;
         this.date = date;
         this.isExpired = isExpired;

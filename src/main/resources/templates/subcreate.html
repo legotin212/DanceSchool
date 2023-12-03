@@ -2,10 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Selection</title>
 </head>
 <body>
-<h1>Дать пользователю абонемент</h1>
 
+<form method="post" action="/Admin/subCreate">
+    <table>
+        <thead>
+        <tr>
+            <th>Название</th>
+
+        </tr>
+        <input type="number" name="visits" required />
+        <input type="date" name="expirationDate" required>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.name}">Имя</td>
+            <td th:text="${user.lastname}">Фамилия</td>
+            <td th:text="${user.username}">Логин</td>
+            <td>
+                <input type="radio"  name="user_id" th:value="${user.id}" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="submit">Записаться</button>
+</form>
+
+</body>
+<body>
+<a th:href="@{/Admin}" class="btn btn-primary "> Вернуться</a>>
 </body>
 </html>
